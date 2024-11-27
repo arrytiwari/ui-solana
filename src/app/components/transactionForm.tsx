@@ -11,7 +11,7 @@ export default function TransactionForm() {
   const [recipient, setRecipient] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
   const [status, setStatus] = useState<string>('');
-  const [isSending, setIsSending] = useState<boolean>(false); // New state
+  const [isSending, setIsSending] = useState<boolean>(false); 
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,13 +38,13 @@ export default function TransactionForm() {
     }
 
     try {
-      setIsSending(true); // Disable button and show sending status
+      setIsSending(true); 
       setStatus('Sending transaction...');
 
-      // Step 1: Fetch the latest blockhash and last valid block height
+      
       const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
 
-      // Step 2: Create the transaction with recent blockhash and fee payer
+    
       const transaction = new Transaction({
         recentBlockhash: blockhash,
         feePayer: publicKey,
@@ -56,12 +56,11 @@ export default function TransactionForm() {
         })
       );
 
-      // Step 3: Send the transaction
+     
       const signature = await sendTransaction(transaction, connection);
 
       setStatus(`Transaction sent: ${signature}`);
 
-      // Step 4: Confirm the transaction using the new strategy
       await connection.confirmTransaction(
         {
           signature,
