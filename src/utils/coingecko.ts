@@ -1,4 +1,3 @@
-// utils/coingecko.ts
 import axios from 'axios';
 
 export const getSolPrice = async (): Promise<number> => {

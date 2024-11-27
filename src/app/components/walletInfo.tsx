@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import {  LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { getSolPrice } from '@/utils/coingecko';
 
 
-const WalletInfo: React.FC = () => {
+export default function WalletInfo ()  {
   const { connection } = useConnection();
   const { publicKey, connected } = useWallet();
   const [solBalance, setSolBalance] = useState<number>(0);
@@ -62,4 +62,4 @@ const WalletInfo: React.FC = () => {
   );
 };
 
-export default WalletInfo;
+

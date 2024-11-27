@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { ParsedTransactionWithMeta, ParsedInstruction } from '@solana/web3.js';
+import { ParsedTransactionWithMeta } from '@solana/web3.js';
 import { format } from 'date-fns';
 
 interface TransactionInfo {
@@ -13,7 +13,7 @@ interface TransactionInfo {
   status: string;
 }
 
-const TransactionHistory: React.FC = () => {
+export default function TransactionHistory ()  {
   const { connection } = useConnection();
   const { publicKey, connected } = useWallet();
   const [transactions, setTransactions] = useState<TransactionInfo[]>([]);
@@ -40,9 +40,9 @@ const TransactionHistory: React.FC = () => {
             const parsedInstructions = txn.transaction.message.instructions;
 
             for (const instruction of parsedInstructions) {
-              // Type Guard: Check if instruction is a ParsedInstruction
+              
               if ('parsed' in instruction && instruction.programId.toBase58() === '11111111111111111111111111111111') {
-                // Further check if it's a transfer type
+               
                 if (instruction.parsed.type === 'transfer') {
                   const amountLamports = instruction.parsed.info.lamports;
                   const amount = amountLamports / 1e9; // Convert lamports to SOL
@@ -156,4 +156,3 @@ const TransactionHistory: React.FC = () => {
   );
 };
 
-export default TransactionHistory;
